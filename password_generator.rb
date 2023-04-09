@@ -21,13 +21,11 @@ class PasswordGenerator
     validate
 
     password = ''
-    while password.length < min_length || !meets_criteria?(password)
-      password = ''
-      while password.length < min_length
-        password += combined_charset[rand(combined_charset.length)]
-      end
+    while password.length < min_length
+      password += combined_charset[rand(combined_charset.length)]
     end
 
+    return generate if !meets_criteria?(password)
     password
   end
 
@@ -66,9 +64,9 @@ end
 class InvalidConfigurationError < StandardError
 end
 
-generator = PasswordGenerator.new
+# generator = PasswordGenerator.new
 # generator = PasswordGenerator.new(use_small_letters: false, use_capital_letters: false, use_numbers: false, use_symbols: false)
-# generator = PasswordGenerator.new(use_capital_letters: false)
+generator = PasswordGenerator.new(use_capital_letters: false)
 # generator = PasswordGenerator.new(min_length: 20)
 password = generator.generate
 puts password
